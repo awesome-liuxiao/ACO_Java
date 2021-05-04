@@ -13,14 +13,14 @@ public class Ant {
      * length of path get by an ant
      */
     public int tourlength;//total length of an ant passed
-    int citys;//numOfCities
+    int cities;//numOfCities
 /**
  * Assign an ant to a random city
  * initilize ant
  * @param citycount total number of cities
  */
     public void RandomSelectCity(int citycount){
-        citys=citycount;
+        cities=citycount;
         unvisitedcity=new int[citycount];
         tour=new int[citycount+1];
         tourlength=0;
@@ -43,20 +43,20 @@ public class Ant {
      */
     public void SelectNextCity(int index,double[][]tao,int[][]distance){
         double []p;
-        p=new double[citys];//possibility of selecting next city
+        p=new double[cities];//possibility of selecting next city
         //coefficients of calculating the possibility
         double alpha=1.0;
         double beta=2.0;
         double sum=0;
         int currentcity=tour[index-1];//current city where ant is at
         //calculating denominator
-        for(int i=0;i<citys;i++){
+        for(int i=0;i<cities;i++){
             if(unvisitedcity[i]==1)//not visited
                 sum+=(Math.pow(tao[currentcity][i], alpha)*
                         Math.pow(1.0/distance[currentcity][i], beta));
         }
         //calculating the possibilities of each city being selected
-        for(int i=0;i<citys;i++){
+        for(int i=0;i<cities;i++){
             if(unvisitedcity[i]==0)
                 p[i]=0.0;//possibility is 0 if visited
             else{
@@ -72,7 +72,7 @@ public class Ant {
         double sumselect=0;
         int selectcity=-1;
         //selecting cities until the possibilities larger than the random number
-        for(int i=0;i<citys;i++){
+        for(int i=0;i<cities;i++){
             sumselect+=p[i];
             if(sumselect>=selectp){
                 selectcity=i;
@@ -90,8 +90,8 @@ public class Ant {
      */
     public void CalTourLength(int [][]distance){
         tourlength=0;
-        tour[citys]=tour[0];//the first city is the last city
-        for(int i=0;i<citys;i++){
+        tour[cities]=tour[0];//the first city is the last city
+        for(int i=0;i<cities;i++){
             tourlength+=distance[tour[i]][tour[i+1]];//length of from A, visiting each city once, and returned to A
         }
     }
